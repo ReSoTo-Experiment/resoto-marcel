@@ -77,3 +77,6 @@ release.properties
 
 # Other metadata
 *.backup
+
+# mysql container related
+mysql_data/
