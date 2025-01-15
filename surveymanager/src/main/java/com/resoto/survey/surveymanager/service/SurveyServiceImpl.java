@@ -22,4 +22,9 @@ public class SurveyServiceImpl implements SurveyService{
     public List<Survey> getAllSurveys() {
         return repo.getSurveys();
     }
+
+    @Override
+    public Integer createNewSurvey(String title) {
+        return this.repo.createSurvey(title);
+    }
 }

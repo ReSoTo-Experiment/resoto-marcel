@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SurveyRepository {
     List<Survey> getSurveys();
+    Integer createSurvey(String title);
 }

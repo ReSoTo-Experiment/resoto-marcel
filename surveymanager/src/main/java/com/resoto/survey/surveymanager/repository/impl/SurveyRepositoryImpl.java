@@ -1,6 +1,7 @@
 package com.resoto.survey.surveymanager.repository.impl;
 
 import com.resoto.survey.surveymanager.domain.Survey;
+import com.resoto.survey.surveymanager.repository.entities.SurveyEntity;
 import com.resoto.survey.surveymanager.repository.interfaces.jpa.SurveyRepositoryJPA;
 import com.resoto.survey.surveymanager.repository.interfaces.resoto.SurveyRepository;
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,12 @@ public class SurveyRepositoryImpl implements SurveyRepository{
                 .stream()
                 .map(s -> new Survey(s.getId(), s.getTitle()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer createSurvey(String title) {
+        var s = new SurveyEntity();
+        s.setTitle(title);
+        return this.repo.save(s).getId();
     }
 }

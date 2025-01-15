@@ -32,6 +32,7 @@ services:
       OKTA_OAUTH2_ISSUER: ${OAUTH_ISSUER}
       OKTA_OAUTH2_CLIENT-ID: ${SURVEYMANAGER_OAUTH_CLIENT}
       OKTA_OAUTH2_CLIENT-SECRET: ${SURVEYMANAGER_OAUTH_SECRET}
+      SPRING_PROFILES_ACTIVE: prod
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/healthcheck"]
       interval: 30s
@@ -58,6 +59,7 @@ services:
       OKTA_OAUTH2_ISSUER: ${OAUTH_ISSUER}
       OKTA_OAUTH2_CLIENT-ID: ${SURVEYHANDLER_OAUTH_CLIENT}
       OKTA_OAUTH2_CLIENT-SECRET: ${SURVEYHANDLER_OAUTH_SECRET}
+      SPRING_PROFILES_ACTIVE: prod
     ports:
       - "8080:8080"
     env_file:
