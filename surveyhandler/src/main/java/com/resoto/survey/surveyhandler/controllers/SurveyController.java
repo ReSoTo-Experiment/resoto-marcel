@@ -13,4 +13,10 @@ public class SurveyController {
     {
         return "Hello World";
     }
+
+    @GetMapping("/admin")
+    public String Protected()
+    {
+        return "Protected";
+    }
 }

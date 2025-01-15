@@ -17,6 +17,34 @@ services:
       - ./mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    env_file:
+      - .env
+    networks:
+      - app_network      
+
+  surveymanager_app:
+    image: resoto/surveymanager:0.0
+    container_name: surveymanager_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/survey
+      SPRING_DATASOURCE_USERNAME: ${SURVEY_DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${SURVEY_DB_PASS}
+      OKTA_OAUTH2_ISSUER: ${OAUTH_ISSUER}
+      OKTA_OAUTH2_CLIENT-ID: ${SURVEYMANAGER_OAUTH_CLIENT}
+      OKTA_OAUTH2_CLIENT-SECRET: ${SURVEYMANAGER_OAUTH_SECRET}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    env_file:
+      - .env
     networks:
       - app_network
 
@@ -27,26 +55,18 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/survey
       SPRING_DATASOURCE_USERNAME: ${SURVEY_DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${SURVEY_DB_PASS}
+      OKTA_OAUTH2_ISSUER: ${OAUTH_ISSUER}
+      OKTA_OAUTH2_CLIENT-ID: ${SURVEYHANDLER_OAUTH_CLIENT}
+      OKTA_OAUTH2_CLIENT-SECRET: ${SURVEYHANDLER_OAUTH_SECRET}
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     depends_on:
       mysql:
         condition: service_healthy
-    networks:
-      - app_network
-
-  surveymanager_app:
-    image: resoto/surveymanager:0.0
-    container_name: surveymanager_app
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/survey
-      SPRING_DATASOURCE_USERNAME: ${SURVEY_DB_USER}
-      SPRING_DATASOURCE_PASSWORD: ${SURVEY_DB_PASS}
-    ports:
-      - "8081:8081"
-    depends_on:
-      mysql:
-        condition: service_healthy
+      surveymanager_app:
+        condition: service_started
     networks:
       - app_network
 
