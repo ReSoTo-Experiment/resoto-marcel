@@ -1,0 +1,8 @@
+SURVEY_DB_ROOT=<rootpass here>
+SURVEY_DB_USER=<user name here>
+SURVEY_DB_PASS=<password here>
+OAUTH_ISSUER=<Auth0 issuer here>
+SURVEYHANDLER_OAUTH_CLIENT=<Auth client id of the survey handler app>
+SURVEYHANDLER_OAUTH_SECRET=<Auth client secret of the survey handler app>
+SURVEYMANAGER_OAUTH_CLIENT=<Auth client id of the survey manager app>
+SURVEYMANAGER_OAUTH_SECRET=<Auth client secret of the survey manager app>
